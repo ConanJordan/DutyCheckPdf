@@ -20,7 +20,8 @@ public final class ConsistantInfo implements Serializable {
     /**
      * 检索员工和考勤信息的SQL语句
      */
-    public static final String SQL_QUERY = "select " + "e.cardNo as CardNo, " // 卡号
+    public static final String SQL_QUERY = "select " 
+            + "e.cardNo as CardNo, " // 卡号
             + "e.name as Name, " // 姓名
             + "e.dept as Dept, " // 部门
             + "n.cdt as Cdt, " // 打卡日期
