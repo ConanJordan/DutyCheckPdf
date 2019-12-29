@@ -7,13 +7,13 @@ import main.com.co.jp.netwisdom.dto.NoteDutyDto;
 import main.com.co.jp.netwisdom.interfaces.Query;
 
 public class NoteDutyDtoService implements Query {
-	
-	private NoteDutyDtoDao noteDutyDtoDao;
 
-	@Override
-	public List<NoteDutyDto> query(int year, int month) {
-		
-		return this.noteDutyDtoDao.query(year, month);
-	}
+    private NoteDutyDtoDao noteDutyDtoDao;
+
+    @Override
+    public List<NoteDutyDto> query(int year, int month) {
+
+        return this.noteDutyDtoDao.query(year, month);
+    }
 
 }

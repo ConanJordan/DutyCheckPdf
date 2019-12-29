@@ -7,10 +7,10 @@ import main.com.co.jp.netwisdom.interfaces.Query;
 
 public class NoteDutyDtoDao implements Query {
 
-	@Override
-	public List<NoteDutyDto> query(int year, int month) {
-		
-		return null;
-	}
+    @Override
+    public List<NoteDutyDto> query(int year, int month) {
+
+        return null;
+    }
 
 }
