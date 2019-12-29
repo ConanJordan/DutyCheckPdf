@@ -1,5 +1,6 @@
 package main.com.co.jp.netwisdom.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,10 +11,36 @@ import java.util.Date;
 public final class CalendarUtil {
     
     /** 时间戳格式 */
-    public static final String FORMAT_TIMESTAMP = "YYYYmmDDHHMMSS";
+    public static final String TIMESTAMP = "YYYYmmDDHHMMSS";
     
     /** [YYYY-mm-DD]格式 */
-    public static final String FORMAT_YYYYMMDD_DASH = "YYYY-mm-DD";
+    public static final String YYYYMMDD_DASH = "YYYY-mm-DD";
+    
+    /** [HH:MM:SS]格式 */
+    public static final String TIME_COLON = "HH:MM:SS";
+    
+    /** [HH:MM:SS]的Format */
+    private static SimpleDateFormat FORMAT_TIME_COLON;
+    
+    /** 考勤起始时刻8:30(晚于此时刻签到算作迟到) */
+    private static Date START_TIME;
+    
+    /** 考勤结束时刻18:30(早于此时刻算签退作早退) */
+    private static Date END_TIME;
+    
+    /**
+     * 初始化
+     */
+    static {
+        FORMAT_TIME_COLON = new SimpleDateFormat(TIME_COLON);
+        
+        try {
+            START_TIME = FORMAT_TIME_COLON.parse("08:30:00");
+            END_TIME = FORMAT_TIME_COLON.parse("18:30:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 获取目标月的天数(目标月有多少天)
@@ -143,7 +170,7 @@ public final class CalendarUtil {
      */
     public static String timestamp () {
         Date now = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat (FORMAT_TIMESTAMP);
+        SimpleDateFormat sdf = new SimpleDateFormat (TIMESTAMP);
         return sdf.format(now);
     }
     
@@ -183,6 +210,63 @@ public final class CalendarUtil {
                 return true;
         }
         return false;
+    }
+    
+    /**
+     * 迟到判断
+     * @param start
+     * @return
+     */
+    public static boolean isLate (String start) {
+        try {
+            Date startTime = FORMAT_TIME_COLON.parse(start);
+            return startTime.after(START_TIME);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
+    
+    /**
+     * 早退判断
+     * @param end
+     * @return
+     */
+    public static boolean isEarly (String end) {
+        try {
+            Date endTime = FORMAT_TIME_COLON.parse(end);
+            return endTime.before(END_TIME);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
+    
+    /**
+     * 计算出勤时间(减去一小时的午餐时间)
+     * @param start
+     * @param end
+     * @return
+     */
+    public static double getDutyTime (String start, String end) {
+        Date startTime;
+        Date endTime;
+        try {
+            startTime = FORMAT_TIME_COLON.parse(start);
+            endTime = FORMAT_TIME_COLON.parse(end);
+            // 计算开始时刻和结束时刻的毫秒差
+            long millis = endTime.getTime()  - startTime.getTime();
+            // 计算小时差
+            double dutyTime = millis / 1000 / 60 / 60;
+            
+            return dutyTime - 1 > 0d ? dutyTime - 1 : 0d;  // 返回结果(正常:减去一小时的午餐时间)
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
+        return 0d;  // 返回结果(异常)
     }
     
 }

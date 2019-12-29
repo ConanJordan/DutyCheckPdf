@@ -16,6 +16,12 @@ public final class ConsistantInfo implements Serializable {
     public static final String URL = ReadProperty.getProperty("URL", "C:/DataBase/NetWisdom/netwisdom.db");
 
     public static final String PATH = ReadProperty.getProperty("PATH", "C:/PDF/DutyCheck");
+    
+    /** 管理部 */
+    public static final String ADMINISTRATOR = "管理部";
+    
+    /** 营业部 */
+    public static final String BUSINESS = "营业部";
 
     /**
      * 检索员工和考勤信息的SQL语句
@@ -31,6 +37,6 @@ public final class ConsistantInfo implements Serializable {
             + "NoteTable n, " // [NoteTable]表
             + "(on e.cardNo = n.cardNo " // 卡号一致
             + "and e.dept not in (?, ?) " // 管理部和营业部不检索
-            + "and (n.cdt <= date(?) and n.cdt >= date(?)))"; // 打卡日期在目标月内
+            + "and (n.cdt >= date(?) and n.cdt <= date(?)))"; // 打卡日期在目标月内
 
 }
