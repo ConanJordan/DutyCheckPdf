@@ -28,6 +28,14 @@ public final class CalendarUtil {
     /** 考勤结束时刻18:30(早于此时刻算签退作早退) */
     private static Date END_TIME;
     
+    public static final String SUNDAY = "日";
+    public static final String MONDAY = "月";
+    public static final String TUESDAY = "火";
+    public static final String WEDNESDAY = "水";
+    public static final String THURSDAY = "木";
+    public static final String FRIDAY = "金";
+    public static final String SATURDAY = "土";
+    
     /**
      * 初始化
      */
@@ -188,6 +196,32 @@ public final class CalendarUtil {
         calendar.set(Calendar.DATE, day);
         
         return calendar.get(Calendar.DAY_OF_WEEK);
+    }
+    
+    /**
+     * 获取目标日期的星期(曜日)
+     * @param WEEK
+     * @return
+     */
+    public static String getWeek (int WEEK) {
+        switch (WEEK) {
+            case Calendar.SUNDAY :
+                return SUNDAY;
+            case Calendar.MONDAY :
+                return MONDAY;
+            case Calendar.TUESDAY :
+                return TUESDAY;
+            case Calendar.WEDNESDAY :
+                return WEDNESDAY;
+            case Calendar.THURSDAY :
+                return THURSDAY;
+            case Calendar.FRIDAY :
+                return FRIDAY;
+            case Calendar.SATURDAY :
+                return SATURDAY;
+        }
+        
+        return null;
     }
     
     /**
