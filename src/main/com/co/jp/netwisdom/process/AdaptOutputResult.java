@@ -39,7 +39,7 @@ public class AdaptOutputResult {
         this.days = CalendarUtil.daysOfMonth(this.year, this.month);
     }
     
-    public void adapt () {  // TODO
+    public void adapt () {
         
         // 以CardNo作为key,遍历noteDuties集合，把CardNo相同的[NoteDutyDto]元素放到一个集合里。
         Map<String, List<NoteDutyDto>> map = new HashMap<String, List<NoteDutyDto>>();
@@ -61,7 +61,8 @@ public class AdaptOutputResult {
             //String cardNo = entry.getKey();
             List<NoteDutyDto> noteDutyList = entry.getValue();
             
-            // TODO 往要返回的结果集合里放入元素
+            // 往要返回的结果集合里放入元素
+            this.addOutputResult(noteDutyList);
             
         }
     }

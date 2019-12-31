@@ -15,13 +15,19 @@ public final class ConsistantInfo implements Serializable {
 
     public static final String URL = ReadProperty.getProperty("URL", "C:/DataBase/NetWisdom/netwisdom.db");
 
-    public static final String PATH = ReadProperty.getProperty("PATH", "C:/PDF/DutyCheck");
+    public static final String PATH = ReadProperty.getProperty("PATH", "C:/PDF/DutyCheck/");
     
     /** 管理部 */
     public static final String ADMINISTRATOR = "管理部";
     
     /** 营业部 */
     public static final String BUSINESS = "营业部";
+    
+    /** 检索提示信息 */
+    public static final String INFO_INPUT_MESSAGE = "请输入需要查询的考勤年月。格式为YYYYMM.";
+    
+    /** 处理结果信息 */
+    public static final String INFO_PROCESS_RESULT = "PDF文件已生成。文件存储路径为:" + PATH;
 
     /**
      * 检索员工和考勤信息的SQL语句
