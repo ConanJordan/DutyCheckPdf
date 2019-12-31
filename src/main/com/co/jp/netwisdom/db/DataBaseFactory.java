@@ -14,7 +14,7 @@ public final class DataBaseFactory {
         Connection connection = null;
         try {
             Class.forName(ConsistantInfo.DRIVER); // 加载数据库的驱动类
-            connection = DriverManager.getConnection(ConsistantInfo.DRIVER); // 获取数据库的连接
+            connection = DriverManager.getConnection(ConsistantInfo.URL); // 获取数据库的连接
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {

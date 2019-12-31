@@ -38,10 +38,10 @@ public final class ConsistantInfo implements Serializable {
             + "e.dept as Dept, " // 部门
             + "n.cdt as Cdt, " // 打卡日期
             + "n.cti as Cti " // 打卡时刻
-            + "from Employee e, " // [Employee]表
+            + "from Employee e " // [Employee]表
             + "left join " // 左连接
-            + "NoteTable n, " // [NoteTable]表
-            + "(on e.cardNo = n.cardNo " // 卡号一致
+            + "NoteTable n " // [NoteTable]表
+            + "on (e.cardNo = n.cardNo " // 卡号一致
             + "and e.dept not in (?, ?) " // 管理部和营业部不检索
             + "and (n.cdt >= date(?) and n.cdt <= date(?)))"; // 打卡日期在目标月内
 
